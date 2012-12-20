@@ -198,9 +198,7 @@ qulonglong ClientPrivate::submitCaptcha(const QByteArray& key, const QByteArray&
 
 void ClientPrivate::checkCaptchaStatus(const QByteArray& key, qulonglong id)
 {
-	QUrl url(QLatin1String("http://antigate.com/res.php?action=get"));
-	url.addEncodedQueryItem("key", key.toPercentEncoding());
-	url.addEncodedQueryItem("id", QByteArray::number(id));
+	QUrl url = QUrl::fromEncoded("http://antigate.com/res.php?action=get&key=" + key.toPercentEncoding() + "&id=" + QByteArray::number(id));
 
 	QNetworkRequest req(url);
 	req.setAttribute(static_cast<QNetworkRequest::Attribute>(QNetworkRequest::User + 1), id);
@@ -212,9 +210,7 @@ void ClientPrivate::checkCaptchaStatus(const QByteArray& key, qulonglong id)
 
 void ClientPrivate::reportCaptcha(const QByteArray& key, qulonglong id)
 {
-	QUrl url(QLatin1String("http://antigate.com/res.php?action=reportbad"));
-	url.addEncodedQueryItem("key", key.toPercentEncoding());
-	url.addEncodedQueryItem("id", QByteArray::number(id));
+	QUrl url = QUrl::fromEncoded("http://antigate.com/res.php?action=reportbad&key=" + key.toPercentEncoding() + "&id=" + QByteArray::number(id));
 
 	QNetworkRequest req(url);
 	req.setAttribute(static_cast<QNetworkRequest::Attribute>(QNetworkRequest::User + 1), id);
@@ -226,8 +222,7 @@ void ClientPrivate::reportCaptcha(const QByteArray& key, qulonglong id)
 
 void ClientPrivate::queryBalance(const QByteArray& key)
 {
-	QUrl url(QLatin1String("http://antigate.com/res.php?action=getbalance"));
-	url.addEncodedQueryItem("key", key.toPercentEncoding());
+	QUrl url = QUrl::fromEncoded("http://antigate.com/res.php?action=getbalance&key=" + key.toPercentEncoding());
 
 	QNetworkRequest req(url);
 	QNetworkReply* reply = this->mgr()->get(req);
@@ -288,23 +283,22 @@ void ClientPrivate::transferFunds(const QByteArray &tkey, const QByteArray &logi
 
 void ClientPrivate::getProxies(const QByteArray& key, ProxyType type)
 {
-	QUrl url(QLatin1String("http://antigate.com/res.php?action=getproxy&id=0"));
-	url.addEncodedQueryItem("key", key.toPercentEncoding());
+	QByteArray u("http://antigate.com/res.php?action=getproxy&id=0&key=" + key.toPercentEncoding());
 
 	switch (type) {
 		case Antigate::ProxyTransparent:
-			url.addEncodedQueryItem("is_anonim", "0");
+			u += "&is_anonim=0";
 			break;
 
 		case Antigate::ProxyAnonymous:
-			url.addEncodedQueryItem("is_anonim", "1");
+			u += "&is_anonim=1";
 			break;
 
 		default:
 			break;
 	}
 
-	QNetworkRequest req(url);
+	QNetworkRequest req(QUrl::fromEncoded(u));
 	QNetworkReply* reply = this->mgr()->get(req);
 
 	Q_Q(Client);
