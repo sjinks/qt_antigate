@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typesystem package="antigate">
+	<rejection class="*" function-name="d_func"/>
+	<rejection class="*" field-name="d_ptr"/>
+
+	<namespace-type name="Antigate"/>
+	<enum-type name="Antigate::Error"/>
+	<enum-type name="Antigate::CaptchaFormat"/>
+	<enum-type name="Antigate::ProxyType"/>
+	<object-type name="Antigate::Client">
+		<extra-includes>
+			<include file-name="QEvent" location="global"/>
+		</extra-includes>
+	</object-type>
+
+	<suppress-warning text="WARNING(MetaJavaBuilder) :: duplicate enum values: Antigate::Error, ErrorReportRecorded and ErrorOK are 0, already rejected: ()"/>
+	<suppress-warning text="WARNING(MetaJavaBuilder) :: duplicate enum values: Antigate::Error, ErrorLoginExists and ErrorOK are 0, already rejected: ()"/>
+	<suppress-warning text="WARNING(MetaJavaBuilder) :: duplicate enum values: Antigate::Error, ErrorTransferComplete and ErrorOK are 0, already rejected: ()"/>
+</typesystem>
