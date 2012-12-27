@@ -1,4 +1,4 @@
 *.log
 .preprocessed.tmp
-/đoc
+/doc
 /generated_cpp
