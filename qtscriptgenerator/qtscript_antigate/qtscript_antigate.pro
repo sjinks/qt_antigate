@@ -5,7 +5,7 @@ CONFIG  += plugin release
 TEMPLATE = lib
 
 SOURCES += ../generated_cpp/antigate/plugin.cpp
-exits(../generated_cpp/antigate/plugin.h) {
+exists(../generated_cpp/antigate/plugin.h) {
 	HEADERS += ../generated_cpp/antigate/plugin.h
 }
 
