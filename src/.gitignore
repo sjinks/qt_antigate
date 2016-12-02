@@ -1,0 +1,8 @@
+.qmake.stash
+Makefile
+Makefile.*
+*.so
+debug/
+release/
+*.prl
+*.so.*
